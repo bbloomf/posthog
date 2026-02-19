@@ -16,10 +16,10 @@ class SignalSourceConfigSerializer(serializers.ModelSerializer):
             "config",
             "created_at",
             "updated_at",
-            "clustering_status",
-            "clustering_triggered_at",
+            "status",
+            "triggered_at",
         ]
-        read_only_fields = ["id", "created_at", "updated_at", "clustering_status", "clustering_triggered_at"]
+        read_only_fields = ["id", "created_at", "updated_at", "status", "triggered_at"]
 
     def validate(self, attrs: dict) -> dict:
         source_product = attrs.get("source_product", getattr(self.instance, "source_product", None))

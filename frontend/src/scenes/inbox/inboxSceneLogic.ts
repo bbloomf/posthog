@@ -13,12 +13,12 @@ import { Breadcrumb, RecordingUniversalFilters } from '~/types'
 
 import type { inboxSceneLogicType } from './inboxSceneLogicType'
 import {
-    ClusteringStatus,
     SignalReport,
     SignalReportArtefact,
     SignalReportArtefactResponse,
     SignalSourceConfig,
     SignalSourceProduct,
+    SignalSourceConfigStatus,
     SignalSourceType,
 } from './types'
 
@@ -136,8 +136,8 @@ export const inboxSceneLogic = kea<inboxSceneLogicType>([
                         config: {},
                         created_at: new Date().toISOString(),
                         updated_at: new Date().toISOString(),
-                        clustering_status: null,
-                        clustering_triggered_at: null,
+                        status: null,
+                        triggered_at: null,
                     },
                 ]
             },
@@ -195,7 +195,7 @@ export const inboxSceneLogic = kea<inboxSceneLogicType>([
         ],
         isClusteringRunning: [
             (s) => [s.sessionAnalysisConfig],
-            (config: SignalSourceConfig | null): boolean => config?.clustering_status === ClusteringStatus.RUNNING,
+            (config: SignalSourceConfig | null): boolean => config?.status === SignalSourceConfigStatus.RUNNING,
         ],
     }),
 

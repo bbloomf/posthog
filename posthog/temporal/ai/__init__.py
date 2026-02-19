@@ -68,6 +68,7 @@ from .video_segment_clustering.activities import (
     label_clusters_activity,
     match_clusters_activity,
     persist_reports_activity,
+    update_source_config_status_activity,
 )
 from .video_segment_clustering.clustering_workflow import VideoSegmentClusteringWorkflow
 from .video_segment_clustering.coordinator_workflow import (
@@ -129,7 +130,12 @@ SIGNALS_ACTIVITIES = [
     label_clusters_activity,
     persist_reports_activity,
     get_proactive_tasks_enabled_team_ids_activity,
+<<<<<<< HEAD
     *SIGNALS_PRODUCT_ACTIVITIES,
+||||||| parent of d5929aa8c0f (refactor(signals): simplify clustering trigger - generic status, no wrapper workflow)
+=======
+    update_source_config_status_activity,
+>>>>>>> d5929aa8c0f (refactor(signals): simplify clustering trigger - generic status, no wrapper workflow)
 ]
 
 __all__ = [

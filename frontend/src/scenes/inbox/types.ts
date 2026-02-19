@@ -39,8 +39,8 @@ export interface SignalSourceConfig {
     config: Record<string, any>
     created_at: string
     updated_at: string
-    clustering_status: ClusteringStatus | null
-    clustering_triggered_at: string | null
+    status: SignalSourceConfigStatus | null
+    triggered_at: string | null
 }
 
 export enum SignalSourceProduct {
@@ -51,7 +51,7 @@ export enum SignalSourceType {
     SESSION_ANALYSIS_CLUSTER = 'session_analysis_cluster',
 }
 
-export enum ClusteringStatus {
+export enum SignalSourceConfigStatus {
     RUNNING = 'running',
     COMPLETED = 'completed',
     FAILED = 'failed',
