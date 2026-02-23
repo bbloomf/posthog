@@ -41,15 +41,18 @@ export function useLocalStorage<T>(key: string, defaultValue: T): [T, (value: T 
         }
     }, [key])
 
+    useEffect(() => {
+        setStoredValueInStorage(key, storedValue)
+    }, [key, storedValue])
+
     const setValue = useCallback(
         (value: T | ((prev: T) => T)) => {
             setStoredValue((prev) => {
                 const valueToStore = value instanceof Function ? value(prev) : value
-                setStoredValueInStorage(key, valueToStore)
                 return valueToStore
             })
         },
-        [key]
+        []
     )
 
     return [storedValue, setValue]
