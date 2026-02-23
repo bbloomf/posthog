@@ -12,7 +12,6 @@ import { cn } from 'lib/utils/css-classes'
 
 import { SuggestionGroup, maxLogic } from '../maxLogic'
 import { maxThreadLogic } from '../maxThreadLogic'
-import { checkSuggestionRequiresUserInput, formatSuggestion, stripSuggestionPlaceholders } from '../utils'
 import { InputFormArea } from './InputFormArea'
 import { QuestionInput } from './QuestionInput'
 
@@ -127,9 +126,9 @@ function SuggestionsList(): JSX.Element {
                         return
                     }
 
-                    if (checkSuggestionRequiresUserInput(suggestion.content)) {
+                    if (suggestion.requiresUserInput) {
                         // Content requires to write something to continue
-                        setQuestion(stripSuggestionPlaceholders(suggestion.content))
+                        setQuestion(suggestion.content)
                         focusInput()
                     } else {
                         // Otherwise, just launch the generation
@@ -156,7 +155,7 @@ function SuggestionsList(): JSX.Element {
                             type="tertiary"
                             fullWidth
                         >
-                            <span className="font-normal">{formatSuggestion(suggestion.content)}</span>
+                            <span className="font-normal">{suggestion.content}</span>
                         </LemonButton>
                     </ToggleGroupItem>
                 ))}
