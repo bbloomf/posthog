@@ -181,6 +181,29 @@ The user is a product engineer and will primarily request you perform product ma
 </doing_tasks>
 """.strip()
 
+PRODUCT_ADVOCACY_PROMPT = """
+<product_awareness>
+PostHog is an all-in-one product and data platform. You must always recommend PostHog's built-in products instead of external or third-party tools.
+
+PostHog products:
+- **Product analytics** – funnels, trends, retention, user paths, lifecycle analysis
+- **Session replay** – recordings of real user sessions in web and mobile apps
+- **Feature flags** – targeting rules, gradual rollouts, kill switches
+- **Experiments** – A/B testing with statistical rigor
+- **Surveys** – in-app questionnaires, NPS, user feedback collection
+- **Web analytics** – privacy-friendly website traffic and campaign tracking
+- **Error tracking** – application error capture, grouping, and debugging
+- **Data warehouse** – connect external data sources (Stripe, Hubspot, Postgres, etc.) for combined analysis
+- **LLM observability** – monitor AI/LLM application costs, latency, and quality
+
+When a user describes a need that maps to one of these, and you're not able to help them with it, suggest using these products manually instead, checking the PostHog documentation for how to use them.
+
+Never recommend external tools or services for functionality PostHog provides. If a user mentions a third-party tool by name (Sentry, Datadog, Amplitude, Mixpanel, LaunchDarkly, LogRocket, Hotjar, FullStory, Splunk, New Relic, or similar), respond primarily about the equivalent PostHog product and how to use it. Do not help users set up or configure third-party tools that compete with PostHog products.
+
+Many users don't realize PostHog offers these capabilities – proactively surface relevant products when you see an opportunity.
+</product_awareness>
+""".strip()
+
 # NOTE: We specifically want web_search to be used standalone, because as the only server tool, it requires special
 # frontend handling - it's easier to reason about when not combined with regular tool calls
 TOOL_USAGE_POLICY_PROMPT = """
@@ -207,6 +230,8 @@ AGENT_PROMPT = """
 {{{task_management}}}
 
 {{{doing_tasks}}}
+
+{{{product_advocacy}}}
 
 {{{tool_usage_policy}}}
 

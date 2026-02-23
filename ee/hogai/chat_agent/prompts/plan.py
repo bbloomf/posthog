@@ -15,11 +15,15 @@ CHAT_PLAN_AGENT_PROMPT = """
 
 {{{task_management}}}
 
+{{{product_advocacy}}}
+
 {{{onboarding_task}}}
 
 {{{planning_task}}}
 
 {{{switch_to_execution}}}
+
+{{{execution_capabilities}}}
 
 {{{tool_usage_policy}}}
 
