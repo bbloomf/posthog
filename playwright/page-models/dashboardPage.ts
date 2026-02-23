@@ -253,7 +253,6 @@ export class CompactDashboardPage extends DashboardPage {
         const textarea = this.popoverDescriptionField.locator('textarea')
         await expect(textarea).toBeVisible()
         await textarea.fill(description)
-        // Blur to save
-        await this.tilePopover.locator('h4').click()
+        await textarea.blur()
     }
 }

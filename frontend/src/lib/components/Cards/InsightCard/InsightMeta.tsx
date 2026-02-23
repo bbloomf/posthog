@@ -238,6 +238,14 @@ export function InsightMeta({
                     />
                 )
             }
+            popoverTopHeading={
+                <TopHeading
+                    query={insight.query}
+                    lastRefresh={insight.last_refresh}
+                    hasTileOverrides={Object.keys(tile?.filters_overrides ?? {}).length > 0}
+                    resolvedDateRange={insightData?.resolved_date_range}
+                />
+            }
             content={
                 <InsightMetaContent
                     link={urls.insightView(
