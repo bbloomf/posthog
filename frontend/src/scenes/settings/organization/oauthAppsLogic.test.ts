@@ -68,5 +68,6 @@ describe('oauthAppsLogic', () => {
         freshLogic.mount()
 
         expect(freshLogic.values.oauthApps).toEqual([])
+        expect(freshLogic.values.oauthAppsLoading).toEqual(true)
     })
 })
