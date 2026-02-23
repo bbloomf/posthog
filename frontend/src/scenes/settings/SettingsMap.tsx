@@ -1381,13 +1381,6 @@ export const SETTINGS_MAP: SettingSection[] = [
                 component: <OrganizationIntegrations />,
                 keywords: ['integration', 'connect', 'third-party', 'oauth'],
             },
-        ],
-    },
-    {
-        level: 'organization',
-        id: 'organization-oauth-apps',
-        title: 'OAuth applications',
-        settings: [
             {
                 id: 'organization-oauth-apps-list',
                 title: 'OAuth applications',
