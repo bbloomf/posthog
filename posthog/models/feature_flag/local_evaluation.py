@@ -913,6 +913,7 @@ def _get_flags_response_for_local_evaluation(team: Team, include_cohorts: bool) 
 
         except Exception:
             logger.error("Error processing feature flag", extra={"flag_id": feature_flag.pk}, exc_info=True)
+            FLAG_PROCESSING_ERROR_COUNTER.labels(team_id=str(team.id)).inc()
             continue
 
     response_data = {
