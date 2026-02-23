@@ -64,6 +64,7 @@ import {
     DashboardTemplateEditorType,
     DashboardTile,
     DashboardType,
+    InsightColor,
     InsightModel,
     InsightShortId,
     ProjectTreeRef,
@@ -250,7 +251,7 @@ export const dashboardLogic = kea<dashboardLogicType>([
          */
         updateLayouts: (layouts: Layouts) => ({ layouts }),
         updateContainerWidth: (containerWidth: number, columns: number) => ({ containerWidth, columns }),
-        updateTileColor: (tileId: number, color: string | null) => ({ tileId, color }),
+        updateTileColor: (tileId: number, color: InsightColor | null) => ({ tileId, color }),
         toggleTileDescription: (tileId: number) => ({ tileId }),
         setTileProperty: (tileId: number, properties: Partial<Pick<DashboardTile, 'color' | 'show_description'>>) => ({
             tileId,
