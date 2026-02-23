@@ -78,7 +78,7 @@ export class RecordingService {
 
             if (!response.Body) {
                 logger.debug('[RecordingService] S3 returned no body', { key })
-                RecordingApiMetrics.observeGetBlock('not_found', (performance.now() - startTime) / 1000)
+                RecordingApiMetrics.observeGetBlock('not_found', (performance.now() - startTime) / 1000, 'unknown')
                 return { ok: false, error: 'not_found' }
             }
 
@@ -88,17 +88,22 @@ export class RecordingService {
                 bytesReceived: bodyContents.length,
             })
 
-            const decrypted = await this.decryptor.decryptBlock(sessionId, teamId, Buffer.from(bodyContents))
+            const { data, sessionState } = await this.decryptor.decryptBlock(
+                sessionId,
+                teamId,
+                Buffer.from(bodyContents)
+            )
 
             logger.debug('[RecordingService] Decrypted block', {
                 sessionId,
                 teamId,
                 inputSize: bodyContents.length,
-                outputSize: decrypted.length,
+                outputSize: data.length,
+                sessionState,
             })
 
-            RecordingApiMetrics.observeGetBlock('success', (performance.now() - startTime) / 1000)
-            return { ok: true, data: decrypted }
+            RecordingApiMetrics.observeGetBlock('success', (performance.now() - startTime) / 1000, sessionState)
+            return { ok: true, data }
         } catch (error) {
             if (error instanceof SessionKeyDeletedError) {
                 logger.info('[RecordingService] Session key has been deleted', {
@@ -106,11 +111,11 @@ export class RecordingService {
                     sessionId,
                     deleted_at: error.deletedAt,
                 })
-                RecordingApiMetrics.observeGetBlock('deleted', (performance.now() - startTime) / 1000)
+                RecordingApiMetrics.observeGetBlock('deleted', (performance.now() - startTime) / 1000, 'unknown')
                 return { ok: false, error: 'deleted', deletedAt: error.deletedAt }
             }
 
-            RecordingApiMetrics.observeGetBlock('error', (performance.now() - startTime) / 1000)
+            RecordingApiMetrics.observeGetBlock('error', (performance.now() - startTime) / 1000, 'unknown')
             throw error
         }
     }
