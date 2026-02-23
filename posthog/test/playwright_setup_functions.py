@@ -200,11 +200,10 @@ def create_organization_with_team(
         personal_api_key=api_key._value,  # type: ignore
         created_variables=[
             PlaywrightSetupCreatedVariable(id=str(v.id), code_name=v.code_name or "") for v in created_variables
-        ]
-        or None,
+        ] if created_variables else None,
         created_insights=[PlaywrightSetupCreatedInsight(id=i.id, short_id=i.short_id) for i in created_insights]
-        or None,
-        created_dashboards=[PlaywrightSetupCreatedDashboard(id=d.id) for d in created_dashboards] or None,
+        if created_insights else None,
+        created_dashboards=[PlaywrightSetupCreatedDashboard(id=d.id) for d in created_dashboards] if created_dashboards else None,
     )
 
 
@@ -292,6 +291,8 @@ def _create_dashboards(
         )
         if dash_spec.insight_indexes and created_insights:
             for idx in dash_spec.insight_indexes:
+                if int(idx) >= len(created_insights):
+                    continue  # Skip invalid indexes
                 DashboardTile.objects.create(
                     dashboard=dashboard,
                     insight=created_insights[int(idx)],
