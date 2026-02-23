@@ -24,9 +24,7 @@ use prost::Message;
 use std::sync::Arc;
 use std::time::Duration;
 
-#[path = "common/utils.rs"]
-mod test_utils;
-use test_utils::DEFAULT_CONFIG;
+use integration_utils::DEFAULT_CONFIG;
 
 struct FixedTime {
     pub time: DateTime<Utc>,

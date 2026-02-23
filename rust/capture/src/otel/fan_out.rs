@@ -199,7 +199,7 @@ mod tests {
             assert_eq!(any_value_to_json(&input), expected);
         }
 
-        let v = any_value_to_json(&any_value::Value::DoubleValue(3.14));
+        let v = any_value_to_json(&any_value::Value::DoubleValue(1.23));
         assert!(v.is_number());
     }
 
